@@ -15,18 +15,29 @@ public class App {
   public static void main(String[] args) {
 
     final Scanner get = new Scanner(System.in);
-    final String getOperator = get.next();
+    String getOperator = null;
+    String commendGetNotation = null;
+    String format = null;
     String getNotation = "10";
-    final String commendGetNotation = get.next();
 
-    if (commendGetNotation.equals("numeral-system") || commendGetNotation.equals("ns")) {
-      System.out.print(commendGetNotation+"=");
-      getNotation = get.next();
+    for (int i = 1; i < 4; i++) {
+      String startCalculator = get.next();
 
+      if (startCalculator.contains("formula")) {
+        System.out.print("formula=");
+        getOperator = get.next();
+
+      } else if (startCalculator.contains("numeral-system") || startCalculator.contains("ns")) {
+
+        commendGetNotation = startCalculator;
+        System.out.print(commendGetNotation + "=");
+        getNotation = get.next();
+
+      } else if (startCalculator.contains("format")) {
+        System.out.print("format=");
+        format = get.next();
+      }
     }
-
-    System.out.print("format=");
-    final String format = get.next();
 
     final List<String> expression = new ArrayList<>(Arrays.asList(getOperator.split("\\+")));
 
@@ -44,14 +55,14 @@ public class App {
         numberSumOperate(expression.get(i));
       }
     }
-    if(format.equals("short")){
-    totalSum = permuteNotation(getNotation, romanNumberSum + decimalNumberSum + octalNumberSum + binaryNumberSum);
-    System.out.println(totalSum + "(" + getNotation + ")");
-    }
-    if(format.equals("long")){
+    if (format.equals("short")) {
       totalSum = permuteNotation(getNotation, romanNumberSum + decimalNumberSum + octalNumberSum + binaryNumberSum);
-      System.out.println("result: "+totalSum);
-      System.out.println(commendGetNotation+": " + getNotation);
+      System.out.println(totalSum + "(" + getNotation + ")");
+    }
+    if (format.equals("long")) {
+      totalSum = permuteNotation(getNotation, romanNumberSum + decimalNumberSum + octalNumberSum + binaryNumberSum);
+      System.out.println("result: " + totalSum);
+      System.out.println(commendGetNotation + ": " + getNotation);
     }
   }
 
